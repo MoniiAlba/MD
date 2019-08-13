@@ -1,0 +1,11 @@
+Lista de variables nominales (Binarias en caso de SAS EM)
+
+DDA,DIRDEP,NSF,SAV,ATM,CD,IRA,LOC,INV,ILS,MM,MTG,CC,SDB,HMOWN,MOVED,INAREA,INS
+
+VO: INS
+------------------------------------------------------------------------------
+Variable Objetivo: 46, INS (class para Weka).
+
+2,8,9,13,15,19,21,23,25,27,29,32,34,37,39,44,45,46
+
+
