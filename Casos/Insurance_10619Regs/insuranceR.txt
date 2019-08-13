@@ -1,0 +1,45 @@
+# Procesamiento (bastante ingenuo) de los datos del caso insurance (Clasificador):
+
+insurance<-read.table('C:\\Insurance_10619.csv',header=T,sep=',')
+
+
+insurance<-read.csv('D:\\User\\A_CursoMD_Axa\\insurance.csv',header=T,sep=',',quote="",na.strings=c(".", "NA", "", "?"))
+summary(insurance)
+
+library(rpart)
+arbIns<-rpart(INS~.,data=insurance)
+arbIns
+printcp(arbIns)
+plotcp(arbIns)
+plot(arbIns,uniform=TRUE,main="Arbol de Clasificación para INS")
+text(arbIns,use.n=TRUE,all=TRUE)
+
+p=predict(arbIns,newdata=insurance)
+
+pv=cbind(insurance$INS,p)
+
+ips=sort(p,index.return=TRUE,decreasing=TRUE)
+
+u=c(1:10619)
+u[pv[1:10619]==0] = -40
+u[pv[1:10619]==1] =  60
+
+plot(cumsum(u))
+plot(cumsum(u[ips$ix]))
+
+
+numUnos  = sum(insurance$INS)
+numCreos = sum( 1 - insurance$INS) 
+
+propUnosOrig  = cumsum(insurance$INS)/numUnos
+propCerosOrig =cumsum(1-insurance$INS)/numCreos
+
+
+plot(propCerosOrig,propUnosOrig)
+
+propUnosArb  = cumsum(insurance$INS[ips$ix])/numUnos
+propCerosArb = cumsum(1-insurance$INS[ips$ix])/numCreos
+
+
+plot(propCerosArb,propUnosArb)
+
